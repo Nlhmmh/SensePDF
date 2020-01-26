@@ -1,0 +1,844 @@
+// My Old FormPDF.vue
+
+<div class="div-border">
+      <table class="table-style">
+        <!-- 
+          ■官公庁や自治体に書類を提出する日 
+          ■ day to submit the documents to the government agencies and local governments
+        -->
+        <tbody>
+          <tr style="border: 0">
+            <td class="small-header" colspan="4">官公庁や自治体に書類を提出する日</td>
+          </tr>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2"></td>
+            <td class="field-3"></td>
+            <td class="field-4">
+              <input v-model="form.dateToSubmit" type="text" placeholder="2019/12/10" />
+            </td>
+          </tr>
+        </tbody>
+        <!-- 
+          ■宛先（税務署、都道府県税事務所の管轄はインターネットで検索できます）		
+          ■ destination (tax office, the jurisdiction of the prefectural tax office can be found on the Internet)
+        -->
+        <tr>
+          <td class="small-header" colspan="4">宛先（税務署、都道府県税事務所の管轄はインターネットで検索できます）</td>
+        </tr>
+        <!--・税務署- Tax Office -->
+        <tbody>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2">・税務署</td>
+          </tr>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2"></td>
+            <td class="field-3"></td>
+            <td class="field-4">
+              <input v-model="form.taxOffice" type="text" placeholder="練馬西" />
+              <span>税務署</span>
+            </td>
+          </tr>
+        </tbody>
+        <!--・都道府県税事務所 Prefectural tax office-->
+        <tbody>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2">・都道府県税事務所</td>
+          </tr>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2"></td>
+            <td class="field-3"></td>
+            <td class="field-4">
+              <input v-model="form.prefecturalTaxOffice" type="text" placeholder="豊島" />
+              <select v-model="form.selectForPrefecturalTaxOffice">
+                <option value="都">都</option>
+                <option value="道">道</option>
+                <option value="府">府</option>
+                <option value="県">県</option>
+              </select>
+              <span>税事務所</span>
+            </td>
+          </tr>
+        </tbody>
+        <!--・市町村· Municipalities -->
+        <tbody>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2">・市町村</td>
+          </tr>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2"></td>
+            <td class="field-3"></td>
+            <td class="field-4">
+              <input v-model="form.municipalities" type="text" placeholder="上井草" />
+              <select v-model="form.selectForMunicipalities">
+                <option value="市">市</option>
+                <option value="町">町</option>
+                <option value="村">村</option>
+              </select>
+              <span>役所または役場</span>
+            </td>
+          </tr>
+        </tbody>
+        <!--
+          ■会社情報	
+          ■ company information	
+        -->
+        <tr>
+          <td class="small-header" colspan="3">会社情報</td>
+        </tr>
+        <!-- ・法人名ふりがな corporate name Phonetic-->
+        <tbody>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2">・法人名ふりがな</td>
+          </tr>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2"></td>
+            <td class="field-3"></td>
+            <td class="field-4">
+              <textarea
+                v-model="form.corporateNameFurigana"
+                class="text-area"
+                placeholder="かぶしきがいしゃにしだやすたかこうにんかいけいしちゅうしょうきぎょうしんだんしぜいりしじむしょ"
+              />
+            </td>
+          </tr>
+        </tbody>
+        <!-- ・法人名 ·Corporate name-->
+        <tbody>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2">・法人名</td>
+          </tr>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2"></td>
+            <td class="field-3"></td>
+            <td class="field-4">
+              <textarea
+                v-model="form.corporateName"
+                class="text-area"
+                placeholder="株式会社西田恭隆公認会計士中小企業診断士税理士事務所"
+              />
+            </td>
+          </tr>
+        </tbody>
+        <!-- ・本店住所 - Head Office Address-->
+        <tbody>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2">・本店住所</td>
+          </tr>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2"></td>
+            <td class="field-3">〒</td>
+            <td class="field-4">
+              <input v-model="form.headOfficeAddress1" type="text" placeholder="177-0042" />
+            </td>
+          </tr>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2"></td>
+            <td class="field-3">住所</td>
+            <td class="field-4">
+              <textarea
+                v-model="form.headOfficeAddress2"
+                class="text-area"
+                placeholder="東京都練馬区下石神井4-20-24○○マンション301号"
+              />
+            </td>
+          </tr>
+        </tbody>
+        <!-- ・電話番号 -->
+        <tbody>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2">・電話番号</td>
+          </tr>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2"></td>
+            <td class="field-3"></td>
+            <td class="field-4">
+              <input v-model="form.companyPhoneNo" type="text" placeholder="03-5372-4677" />
+            </td>
+          </tr>
+        </tbody>
+        <!-- ・納税地 · Jurisdictions-->
+        <tbody>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2">・納税地</td>
+          </tr>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2"></td>
+            <td class="field-3">〒</td>
+            <td class="field-4">
+              <input v-model="form.jurisdictionsAddress1" type="text" placeholder="" />
+            </td>
+          </tr>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2"></td>
+            <td class="field-3">住所</td>
+            <td class="field-4">
+              <textarea
+                v-model="form.jurisdictionsAddress2"
+                class="text-area"
+                placeholder="同上"
+              />
+            </td>
+          </tr>
+        </tbody>
+        <!-- ・連絡先、送付先 · Contact, destination-->
+        <tbody>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2"></td>
+          </tr>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2"></td>
+            <td class="field-3">〒</td>
+            <td class="field-4">
+              <input v-model="form.contactAddress1" type="text" placeholder="" />
+            </td>
+          </tr>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2"></td>
+            <td class="field-3">住所</td>
+            <td class="field-4">
+              <textarea
+                v-model="form.contactAddress2"
+                class="text-area"
+                placeholder="同上"
+              />
+            </td>
+          </tr>
+        </tbody>
+        <!-- ・代表者ふりがな · Representative phonetic-->
+        <tbody>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2">・代表者ふりがな</td>
+          </tr>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2"></td>
+            <td class="field-3"></td>
+            <td class="field-4">
+              <input v-model="form.representativeFurigana" type="text" placeholder="にしだやすたか" />
+            </td>
+          </tr>  
+        </tbody>
+        <!-- ・代表者氏名 · Representative's name-->
+        <tbody>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2">・代表者氏名</td>
+          </tr>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2"></td>
+            <td class="field-3"></td>
+            <td class="field-4">
+              <input v-model="form.representativeName" type="text" placeholder="西田恭隆" />
+            </td>
+          </tr>
+        </tbody>
+        <!-- ・代表者住所 - Representative Address-->
+        <tbody>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2">・代表者住所</td>
+          </tr>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2"></td>
+            <td class="field-3">〒</td>
+            <td class="field-4">
+              <input v-model="form.representativeAddress1" type="text" placeholder="177-0042" />
+            </td>
+          </tr>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2"></td>
+            <td class="field-3">住所</td>
+            <td class="field-4">
+              <textarea
+                v-model="form.representativeAddress2"
+                class="text-area"
+                placeholder="東京都練馬区下石神井4-20-24○○マンション302号"
+              />
+            </td>
+          </tr> 
+        </tbody>
+        
+        <!-- ・資本金 - Capital-->
+        <tbody>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2">・資本金</td>
+          </tr>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2"></td>
+            <td class="field-3"></td>
+            <td class="field-4">
+              <input v-model="form.capital" type="text" placeholder="10000000" />
+              <span>円</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2"></td>
+            <td class="field-3"></td>
+            <td class="field-4">
+              <tr>（うち、現物出資財産）</tr>
+              <tr>
+                <input v-model="form.investment" type="text" placeholder="3000000" />
+                <span>円</span>
+              </tr>
+            </td>
+          </tr>
+        </tbody>
+        <!-- ・会社設立日 · Company founded Date-->
+        <tbody>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2">・会社設立日</td>
+          </tr>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2"></td>
+            <td class="field-3"></td>
+            <td class="field-4">
+              <input v-model="form.companyFoundedDate" type="text" placeholder="07/01/2013" />
+            </td>
+          </tr>
+        </tbody>
+        <!-- ・事業年度の月日 Month of-fiscal year-->
+        <tbody>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2">・事業年度の月日</td>
+          </tr>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2"></td>
+            <td class="field-3"></td>
+            <td class="field-4">
+              <tr>
+                <input v-model="form.fiscalKara" type="text" placeholder="月 日" />
+              </tr>
+              <tr>から</tr>
+            </td>
+          </tr>
+          <tbody></tbody>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2"></td>
+            <td class="field-3"></td>
+            <td class="field-4">
+              <tr>
+                <input v-model="form.fiscalMade" type="text" placeholder="月 日" />
+              </tr>
+              <tr>まで</tr>
+            </td>
+          </tr>
+        </tbody>
+        <!-- ・1年目の事業年度終わりの年月日 - the first year the date of the end of fiscal year-->
+        <tbody>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2" colspan="3">・1年目の事業年度終わりの年月日</td>
+          </tr>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2"></td>
+            <td class="field-3"></td>
+            <td class="field-4">
+              <input v-model="form.endOfFiscalYear" type="text" placeholder="平成 年 月 日" />
+            </td>
+          </tr>
+        </tbody>
+        <!-- ・事業の目的 And purpose of business-->
+        <tbody>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2">・事業の目的</td>
+          </tr>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2"></td>
+            <td class="field-3"></td>
+            <td class="field-4">
+              <textarea 
+                v-model="form.purposeOfBusiness" 
+                class="text-area"
+                placeholder="会社設立、創業融資支援、事業計画書作成、資金調達支援、税務相談" 
+              />
+            </td>
+          </tr>
+        </tbody>
+        <!-- ・事業種目 And business events-->
+        <tbody>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2">・事業の目的</td>
+          </tr>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2"></td>
+            <td class="field-3"></td>
+            <td class="field-4">
+              <input v-model="form.businessEvent" type="text" placeholder="会計税務サービス" />
+              <span>業</span>
+            </td>
+          </tr>
+        </tbody>
+        <!-- ・事業開始見込み年月 And business start expected date-->
+        <tbody>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2">・事業開始見込み年月</td>
+          </tr>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2"></td>
+            <td class="field-3"></td>
+            <td class="field-4">
+              <input v-model="form.businessStartExpectedDate" type="text" placeholder="08/01/2013" />
+            </td>
+          </tr>
+        </tbody>
+        <!-- ・役員と従業員の人数と給与支払い方法 And officials and the number of employee salary payment method-->
+        <tr>
+          <td class="field-1"></td>
+          <td class="field-2" colspan="3">・役員と従業員の人数と給与支払い方法</td>
+        </tr>
+        <tbody>
+          <!-- 役員 Officer-->
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2, align-right" colspan="2">役員</td>
+            <td class="field-4">
+              <input v-model="form.officer" type="text" placeholder="1" />
+              <span>人</span>
+            </td>
+          </tr>
+          <!-- 給与支払方法 Salary Payment-->
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2, align-right" colspan="2">給与支払方法</td>
+            <td class="field-4">
+              <select v-model="form.officerSalary">
+                <option value="月給">月給</option>
+                <option value="日給">日給</option>
+                <option value="時給">時給</option>
+                <option value="年俸">年俸</option>
+              </select>
+            </td>
+          </tr>
+        </tbody>
+        <tr class="blank-line"></tr>
+        <tbody>
+          <!-- 事務職員 office worker-->
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2, align-right" colspan="2">事務職員</td>
+            <td class="field-4">
+              <input v-model="form.officeWorker" type="text" placeholder="2" />
+              <span>人</span>
+            </td>
+          </tr>
+          <!-- 給与支払方法 Salary Payment-->
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2, align-right" colspan="2">給与支払方法</td>
+            <td class="field-4">
+              <select v-model="form.officeWorkerSalary">
+                <option value="月給">月給</option>
+                <option value="日給">日給</option>
+                <option value="時給">時給</option>
+                <option value="年俸">年俸</option>
+              </select>
+            </td>
+          </tr>
+        </tbody>
+        <tr class="blank-line"></tr>
+        <tbody>
+          <!-- 営業・工員 Sales and factory workers-->
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2, align-right" colspan="2">営業・工員</td>
+            <td class="field-4">
+              <input v-model="form.salesFactoryWorkers" type="text" placeholder="3" />
+              <span>人</span>
+            </td>
+          </tr>
+          <!-- 給与支払方法 Salary Payment-->
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2, align-right" colspan="2">給与支払方法</td>
+            <td class="field-4">
+              <select v-model="form.salesFactoryWorkersSalary">
+                <option value="月給">月給</option>
+                <option value="日給">日給</option>
+                <option value="時給">時給</option>
+                <option value="年俸">年俸</option>
+              </select>
+            </td>
+          </tr>
+        </tbody>
+        <tr class="blank-line"></tr>
+        <tbody>
+          <!-- その他 Others-->
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2, align-right" colspan="2">その他</td>
+            <td class="field-4">
+              <input v-model="form.others" type="text" placeholder="" />
+              <span>人</span>
+            </td>
+          </tr>
+          <!-- 給与支払方法 Salary Payment-->
+          <tbody></tbody>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2, align-right" colspan="2">給与支払方法</td>
+            <td class="field-4">
+              <select v-model="form.othersSalary">
+                <option value="月給">月給</option>
+                <option value="日給">日給</option>
+                <option value="時給">時給</option>
+                <option value="年俸">年俸</option>
+              </select>
+            </td>
+          </tr>
+        </tbody>
+        <!--
+          ■税理士(税理士に申請書を作ってもらう場合、以下の欄に入力します。ご自身でつくる場合は入力不要です。)	
+          ■ company information	・法人名ふりがな
+        -->
+        <tr>
+          <td class="small-header" colspan="4">■税理士(税理士に申請書を作ってもらう場合、以下の欄に入力します。ご自身でつくる場合は入力不要です。)</td>
+        </tr>
+        <!-- ・税理士ふりがな & Tax Phonetic-->
+        <tbody>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2">・税理士ふりがな</td>
+          </tr>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2"></td>
+            <td class="field-3"></td>
+            <td class="field-4">
+              <input v-model="form.taxFurigana" type="text" placeholder="にしだやすたか" />
+            </td>
+          </tr>
+        </tbody>
+        <!-- ・税理士氏名 & Tax name-->
+        <tbody>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2">・税理士氏名</td>
+          </tr>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2"></td>
+            <td class="field-3"></td>
+            <td class="field-4">
+              <input v-model="form.taxName" type="text" placeholder="西田恭隆" />
+            </td>
+          </tr>
+        </tbody>
+        <!-- ・税理士住所 & Tax Address-->
+        <tbody>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2">・税理士住所</td>
+          </tr>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2"></td>
+            <td class="field-3"></td>
+            <td class="field-4">
+              <textarea 
+                v-model="form.taxAddress"
+                class="text-area"
+                placeholder="東京都練馬区下石神井4-20-24○○マンション301号" />
+            </td>
+          </tr>
+        </tbody>
+        <!-- ・税理士電話 & Tax Telephone-->
+        <tbody>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2">・税理士電話</td>
+          </tr>
+          <tr>
+            <td class="field-1"></td>
+            <td class="field-2"></td>
+            <td class="field-3"></td>
+            <td class="field-4">
+              <input v-model="form.taxPhone" type="text" placeholder="03-5372-4677" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+
+
+      <input 
+        class="btn-submit-form"
+        v-on:click="fillDefault(form)"
+        type="submit" 
+        value="Fill Default" 
+      >
+      <input 
+        class="btn-submit-form"
+        v-on:click="fillEnglish(form)"
+        type="submit" 
+        value="Fill English" 
+      >
+      <!-- $emit = Send data from child to parent -->
+      <input
+        class="btn-submit-form"
+        v-on:click="$emit('submit-form', form)" 
+        type="submit" 
+        value="Submit Form" 
+      >
+      <input 
+        class="btn-submit-form"
+        type="button" 
+        value="Create DirectPDF" 
+        v-on:click="$emit('create-direct-pdf', form)" 
+      >
+
+
+      //		COSDictionary fieldDict = field.getCOSObject();
+
+
+--------------------------------------------------------------------------------------------------
+
+// A way to write japanese text to PDF
+
+		COSArray fieldAreaArray = (COSArray) fieldDict.getDictionaryObject(COSName.RECT);
+		PDRectangle rec = new PDRectangle(fieldAreaArray);
+
+		float x = rec.getLowerLeftX();
+		float y = rec.getUpperRightY() - rec.getHeight() + 5;
+		
+        PDPageContentStream cs = new PDPageContentStream(pDDocument, page, PDPageContentStream.AppendMode.APPEND,true,true);
+       cs.beginText();
+        cs.setFont(pdFont, 8);
+        cs.newLineAtOffset(x, y);
+        cs.showText(value);
+        cs.endText();
+        
+        cs.beginText();
+        cs.setFont(pdFont, 8);
+        cs.newLineAtOffset(x, y - 9);
+        cs.showText(value);
+        cs.endText();
+        
+        cs.close();
+
+--------------------------------------------------------------------------------------------------
+
+// Create PDF with ID
+
+    <div class="div-border">
+
+      <b-form-group >
+        <b-form-input
+          v-model="idToCreatePDF"
+          placeholder="ID to create PDF"
+        ></b-form-input>
+      </b-form-group>
+
+      <b-button style="margin: 5px;" v-on:click="createPDF" variant="primary">PDF作成</b-button>
+      
+    </div>
+
+    createPDF() {
+      axios({
+        method: 'POST',
+        url: 'http://localhost:8085/api/createPDF',
+        params: {
+          id : this.idToCreatePDF
+        } 
+      })
+      .then(
+        console.log("PDF created with ID : " + this.idToCreatePDF)
+      )
+      .catch(err => console.log(err));
+    },
+
+// STS
+
+	/**
+	 * Create PDF
+	 *
+	 */
+	@CrossOrigin
+	@RequestMapping(value = "/api/createPDF", method = RequestMethod.POST)
+	public ResponseEntity<String> createPDF(@RequestParam String id) {
+		String response = "";
+		try {
+			response = formSer.createPDF(Integer.parseInt(id));
+		} catch (NumberFormatException e) {
+			response = "Error : Targeted ID is not a number";
+		}
+		return new ResponseEntity<String>(response, HttpStatus.OK);
+	}
+
+	public String createPDF(int id) {
+		String response = "";
+		FormBean formBean = formRepoIF.getFormByID(id); // Get Targeted From by ID
+		response = outputPDF(formBean);
+		return response;
+	}
+
+--------------------------------------------------------------------------------------------------
+
+// PDFfont adding
+
+//            PDResources resources = pDAcroForm.getDefaultResources();
+//            COSName a;
+//            System.out.println(resources.getFontNames());
+//            if (resources == null) {
+//            	resources = new PDResources();
+//            }
+//            COSName fontName = resources.add(fontMSGothic);
+//            pDAcroForm.setDefaultResources(resources);
+
+--------------------------------------------------------------------------------------------------
+
+// V-forArray
+
+
+      // nextToDoID: 2,
+            // errors: [
+      //   {
+      //     id : 1,
+      //     message : ""
+      //   }
+      // ],
+
+--------------------------------------------------------------------------------------------------
+
+   checkForm() {
+      // if (this.form.dateToSubmit && this.form.taxOffice) {
+      //   return true;
+      // }
+      // this.errors = [];
+      // if (!this.form.dateToSubmit) {
+      //   this.errors.push({
+      //     id : this.nextToDoID++, 
+      //     message: 'DateToSubmit required.'
+      //     });
+      // }
+      // if (!this.form.taxOffice) {
+      //   this.errors.push({
+      //     id : this.nextToDoID++, 
+      //     message: 'TaxOffice required.'
+      //     });
+      // }
+      if (!this.form.dateToSubmit) {
+        this.errorMessage = "Date Format Error"
+        this.showDismissableAlert = true
+      } else {
+        this.errorMessage = ""
+      }
+      // console.log(this.errors)
+    }
+
+        <!-- <b-alert v-model="showDismissableAlert" dismissible variant="warning">
+        <p v-bind:key="error.id" v-for="error in errors">
+          {{ error.message }}
+        </p>
+      </b-alert> -->
+
+      <!-- $emit('submit-form', form);  -->
+    </div>
+
+    <!-- <div v-if="errors.length">
+      <b>Please correct the following error(s):</b>
+      <p v-bind:key="error.id" v-for="error in errors">
+        {{ error.message }}
+      </p>
+    </div> -->
+
+--------------------------------------------------------------------------------------------------
+
+    createDirectPDF(form) {
+      this.form = form
+      axios({
+        method: 'POST',
+        url: 'http://localhost:8085/api/createDirectPDF',
+        data: {
+          dateToSubmit: this.form.dateToSubmit,
+          taxOffice: this.form.taxOffice,
+          prefecturalTaxOffice: this.form.prefecturalTaxOffice,
+          selectForPrefecturalTaxOffice: this.form.selectForPrefecturalTaxOffice,
+          municipalities: this.form.municipalities,
+          selectForMunicipalities: this.form.selectForMunicipalities,
+          corporateNameFurigana: this.form.corporateNameFurigana,
+          corporateName: this.form.corporateName,
+          headOfficeAddress1: this.form.headOfficeAddress1,
+          headOfficeAddress2: this.form.headOfficeAddress2,
+          companyPhoneNo: this.form.companyPhoneNo,
+          jurisdictionsAddress1: this.form.jurisdictionsAddress1,
+          jurisdictionsAddress2: this.form.jurisdictionsAddress2,
+          contactAddress1: this.form.contactAddress1,
+          contactAddress2: this.form.contactAddress2,
+          representativeFurigana: this.form.representativeFurigana,
+          representativeName: this.form.representativeName,
+          representativeAddress1: this.form.representativeAddress1,
+          representativeAddress2: this.form.representativeAddress2,
+          capital: this.form.capital,
+          investment: this.form.investment,
+          companyFoundedDate: this.form.companyFoundedDate,
+          fiscalKara: this.form.fiscalKara,
+          fiscalMade: this.form.fiscalMade,
+          endOfFiscalYear: this.form.endOfFiscalYear,
+          purposeOfBusiness: this.form.purposeOfBusiness,
+          businessEvent: this.form.businessEvent,
+          businessStartExpectedDate: this.form.businessStartExpectedDate,
+          officer: this.form.officer,
+          officerSalary: this.form.officerSalary,
+          officeWorker: this.form.officeWorker,
+          officeWorkerSalary: this.form.officeWorkerSalary,
+          salesFactoryWorkers: this.form.salesFactoryWorkers,
+          salesFactoryWorkersSalary: this.form.salesFactoryWorkersSalary,
+          others: this.form.others,
+          othersSalary: this.form.othersSalary,
+          taxFurigana: this.form.taxFurigana,
+          taxName: this.form.taxName,
+          taxAddress: this.form.taxAddress,
+          taxPhone: this.form.taxPhone
+        },
+        headers: {
+          'charset' : 'utf-8'
+        }
+      })
+      .then(console.log("Created Direct PDF"))
+      .catch(err => console.log(err));
+    },
+
+--------------------------------------------------------------------------------------------------
